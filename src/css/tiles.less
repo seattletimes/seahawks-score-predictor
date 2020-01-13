@@ -1,0 +1,108 @@
+.tiles{
+  margin: 0 auto;
+  .display-flex();
+  .justify-content(center);
+  .flex-wrap(wrap);
+  .align-items(stretch);
+  min-height: 0px;
+
+  @media @mobile {
+    display: block;
+  }
+
+  .prediction {
+    float: left;
+    .flex(0 0 25%);
+    .display-flex();
+    .flex-direction(column);
+    padding: 8px;
+
+    @media (max-width: 1000px) {
+      .flex(0 0 33%);
+    }
+
+    @media @tablet {
+      .flex(0 0 50%);
+    }
+
+    @media @mobile {
+      display: block;
+    }
+  }
+
+  .card-top {
+    background-color: @seaBlue;
+    overflow: hidden;
+    display: block;
+
+    &::after {
+      clear: both;
+      content: "";
+      display: block;
+    }
+
+    .info-no-mug {
+      height: 80px;
+
+      .name {
+        margin-top: 0;
+        padding-top: 10px;
+      }
+    }
+  }
+
+  .lower {
+    border-right: 1px solid @seaBlue;
+    border-left: 1px solid @seaBlue;
+    border-bottom: 1px solid @seaBlue;
+    padding: 10px;
+    .flex(1 0 auto);
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  .name {
+    color: white;
+    font-size: 1.5em;
+    margin: 10px 0 2px 0;
+  }
+
+  .title {
+    font-size: 14px;
+    color: darkgrey;
+    margin-bottom: 15px;
+    margin-top: 0;
+  }
+
+  .score {
+    font-size: 2em;
+    color: @seaGray;
+    margin: 0;
+  }
+
+  .winner {
+    font-size: 1.3em;
+    margin-top: -8px;
+    margin-bottom: 0;
+  }
+
+  .comment {
+    font-size: 14px;
+    color: black;
+    text-align: left;
+  }
+
+  .info {
+    float: left;
+    width: 70%;
+  }
+
+  .mug {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    float: left;
+    margin: 10px 3% 10px 6%;
+  }
+}

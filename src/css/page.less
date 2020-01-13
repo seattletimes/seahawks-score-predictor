@@ -1,0 +1,147 @@
+#adtopright, #adbottom {
+  margin: 0 auto 0 auto;
+  clear: both;
+  height: 90px;
+  text-align: center;
+
+  & > div, & > img, & > a {
+    display: inline-block !important;
+    float: none !important;
+  }
+
+  img.floatleft {
+    display: none !important;
+  }
+
+  @media (~"max-width: 760px") {
+    display: none;
+  }
+}
+
+#adbottom {
+  padding: 25px;
+}
+
+.top-bar {
+  position: relative;
+  border-bottom: 1px solid fade(@light-gray, 50%);
+  background: @seaGray;
+  width: 100%;
+  padding-top: 10px;
+
+  .logo {
+    width: 100%;
+    position: relative;
+    top: 30px;
+    text-align: center;
+    display: block;
+
+    img {
+      box-sizing: content-box;
+      height: 30px;
+      background: @seaBlue;
+      padding: 10px;
+      border: none;
+      border-image-source: initial;
+      border-image-slice: initial;
+      border-image-width: initial;
+      border-image-outset: initial;
+      border-image-repeat: initial;
+    }
+  }
+}
+
+.header {
+  position: relative;
+  text-align: center;
+  margin: 0 auto 2em;
+  padding: 0 8px;
+  max-width: 1200px;
+
+  .share {
+    display: inline-block !important;
+    border-radius: 4px;
+    padding-left: 8px;
+    z-index: 999;
+  }
+
+  a.share.sharer-0 {
+    height: 24px;
+    position: relative;
+    z-index: 999;
+
+    label {
+      background-color: fade(@seaGray, 20%);
+      color: @seaGray;
+    }
+
+    label:hover {
+      opacity: 1;
+      background-color: fade(@seaGray, 30%);
+    }
+  }
+
+  .hed-main {
+    font-size: 40px;
+    line-height: 1em;
+    text-transform: uppercase;
+    color: @seaBlue;
+    padding-top: 20px;
+    margin: 1em 0 10px 0;
+
+    @media @mobile {
+      font-size: 25px;
+    }
+  }
+
+  .hed-deck {
+    font-size: 4em;
+    line-height: 1em;
+    color: @seaGray;
+    margin: 0 0 0.2em 0;
+
+    @media @tablet {
+      font-size: 3em;
+    }
+
+    @media @mobile {
+      font-size: 30px;
+    }
+  }
+
+  p {
+    font-size: 1.4em;
+    line-height: 1.4em;
+    margin: 0 auto 1em;
+    width: 100%;
+    max-width: 940px;
+
+    @media @tablet {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+  }
+
+  .notables {
+    color: @seaBlue;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.credits {
+  color: @seaBlue;
+  font-family: "PT Sans";
+  text-align: center;
+  // letter-spacing: 1px;
+  padding: 0 10px 20px 10px;
+
+  @media @mobile {
+    font-size: 0.9em;
+    padding-top: 15px;
+  }
+}

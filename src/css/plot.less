@@ -1,0 +1,157 @@
+.scatter-box {
+  position: relative;
+  margin: 45px;
+
+  &::before {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  .axis {
+    font-family: @df-sans;
+    position: absolute;
+    text-transform: uppercase;
+
+    &.x {
+      width: 100%;
+      text-align: center;
+      bottom: -45px;
+    }
+
+    &.y {
+      transform: rotate(-90deg);
+      top: 50%;
+      left: -45px;
+      transform-origin: top left;
+    }
+  }
+
+  .scatterplot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.scatterplot {
+  border-left: 2px solid #888;
+  border-bottom: 2px solid #888;
+
+  .x-num {
+    position: absolute;
+    font-size: 13px;
+    bottom: -22px;
+  }
+
+  .y-num {
+    position: absolute;
+    font-size: 13px;
+    left: -20px;
+  }
+
+  .point-container {
+    cursor: pointer;
+    position: absolute;
+
+    &.home {
+      .tooltip {
+        border-top: 4px solid @home-team;
+      }
+    }
+
+    &.opposing {
+      .tooltip {
+        border-top: 4px solid @opposing;
+      }
+    }
+
+    &.home {
+      .point {
+        background: @home-team;
+      }
+
+      &.user {
+        .point {
+          background: @home-team !important;
+          border: 3px solid @df-goldenrod;
+        }
+      }
+    }
+
+    &.opposing {
+      .point {
+        background: @opposing;
+      }
+
+      &.user {
+        .point {
+          background: @opposing !important;
+          border: 3px solid @df-dark-gray;
+        }
+      }
+    }
+
+    .point {
+      @size: 14px;
+      margin-left: -(@size / 2);
+      margin-top: -(@size / 2);
+      width: @size;
+      height: @size;
+      border-radius: 100%;
+
+      &.low {
+        opacity: .1;
+      }
+
+      &.med {
+        opacity: .4;
+      }
+
+      &.mid-high {
+        opacity: .7;
+      }
+    }
+
+    .tooltip {
+      display: none;
+      position: absolute;
+      background: #EEE;
+      transition: opacity .2s linear;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+      padding: 10px;
+      z-index: 999999;
+      color: @seaBlue;
+      text-align: center;
+      top: 18px;
+      left: -50px;
+
+      .score {
+        font-size: 1.2em;
+      }
+
+      .team {
+      }
+
+      .count {
+        font-size: 0.8em;
+        color: @seaGray;
+        padding-top: 3px;
+        white-space: nowrap;
+      }
+    }
+
+    &:hover {
+      .tooltip {
+        display: block;
+      }
+    }
+
+    .click-tooltip {
+      display: block;
+    }
+  }
+}

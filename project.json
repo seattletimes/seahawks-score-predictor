@@ -1,0 +1,26 @@
+{
+  "s3": {
+    "stage": {
+      "bucket": "projects-staging.seattletimes.com",
+      "path": "wisely-noiseless"
+    },
+    "live": {
+      "bucket": "projects.seattletimes.com",
+      "path": "/2020/seahawks-packers-playoff-predictions"
+    }
+  },
+  "title": "Predict the Seahawks vs. Packers score",
+  "description": "How will Seattle fare on Sunday against the Packers? Make your prediction and compare with our experts and your fellow fans.",
+  "author": "Sean Quinton",
+  "url": "https://projects.seattletimes.com/2020/seahawks-packers-playoff-predictions/",
+  "post_id": 12374963,
+  "image": "assets/social.jpg",
+  "sheets": ["1GfVa-FfkHH7seimrVcQ2FkVyeZhbNSL14M0GHzMRa_c"],
+  "docs": [],
+  "embedded": false,
+  "production": true,
+  "teams": {
+    "home": "Packers",
+    "opposing": "Seahawks"
+  }
+}

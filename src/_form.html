@@ -1,0 +1,26 @@
+<div class="form-panel">
+  <div class="submission">
+
+    <h2>Add your prediction</h2>
+
+    <form class="form" autocomplete="off">
+
+      <div class="team-box">
+        <label class="team" for="home"><%= json.project.teams.home %></label><br>
+        <input name="home" placeholder="" required data-cast="number">
+      </div>
+
+      <div class="team-box">
+        <label class="team" for="opposing"><%= json.project.teams.opposing %></label><br>
+        <input name="opposing" placeholder="" required data-cast="number">
+      </div>
+
+      <button class="submit">SUBMIT</button>
+      <div class="skip">Skip to results <i class="fa fa-long-arrow-right"></i></div>
+
+      <div class="validation error"></div>
+      <div class="message">Submitting your prediction...</div>
+
+    </form>
+  </div>
+</div>

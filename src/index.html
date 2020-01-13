@@ -1,0 +1,203 @@
+<%
+  var predictionData = json.predictions;
+
+  var groupedPredictions = {};
+
+  var aScores = [];
+  var bScores = [];
+  var counts = [];
+  var aCount = 0;
+  var bCount = 0;
+  var aScoreDiffs = [];
+  var bScoreDiffs = [];
+
+  predictionData.forEach(function(p) {
+    // scores have to be numbers, damnit
+    p.home = p.home * 1;
+    p.opposing = p.opposing * 1;
+
+    aScores.push(p.home);
+    bScores.push(p.opposing);
+
+    // keep track of score differentials for both teams
+    if (p.home > p.opposing) {
+      aScoreDiffs.push(p.home - p.opposing);
+    } else {
+      bScoreDiffs.push(p.opposing - p.home);
+    }
+
+    var finalScore = p.home + "-" + p.opposing;
+    if (!groupedPredictions[finalScore]) {
+      groupedPredictions[finalScore] = {
+        home: p.home,
+        opposing: p.opposing,
+        count: 0
+      }
+    }
+    groupedPredictions[finalScore].count += 1;
+    counts.push(groupedPredictions[finalScore].count);
+  });
+
+  var maxHawkScore = Math.max.apply(null, aScores) || 0;
+  var maxPatScore = Math.max.apply(null, bScores) || 0;
+  var maxCount = Math.max.apply(null, counts) || 1;
+
+  var maxScore = maxHawkScore > maxPatScore ? maxHawkScore : maxPatScore;
+
+  for (var index in groupedPredictions) {
+    var p = groupedPredictions[index];
+    p.x = p.home / maxScore * 100,
+    p.y = p.opposing / maxScore * 100,
+    p.opacity = p.count / maxCount;
+    p.fade = p.opacity < .2 ? "low" :
+             p.opacity < .4 ? "med" :
+             p.opacity < .6 ? "mid-high" :
+             "high";
+
+    if (p.home > p.opposing) {
+      p.team = "home";
+      p.title = json.project.teams.home;
+      p.winner = p.home;
+      p.loser = p.opposing;
+      aCount += p.count;
+    } else {
+      p.team = "opposing";
+      p.title = json.project.teams.opposing;
+      p.winner = p.opposing;
+      p.loser = p.home;
+      bCount += p.count;
+    }
+  }
+
+  var totalCount = aCount + bCount || 1;
+  var aPercent = Math.round(aCount / totalCount * 100);
+  var bPercent = Math.round(bCount / totalCount * 100);
+
+  var axis = [];
+  var numbers = [7, 14, 21, 28, 35, 42, 49, 56, 63, 70].forEach(function(score) {
+    if (score <= maxScore) {
+      var percent = score / maxScore * 100;
+      axis.push({ score: score, percent: percent })
+    }
+  });
+
+  // calculate average score differential for both teams
+  var avgADiff = 0;
+  aScoreDiffs.forEach(function(diff) {
+    avgADiff += diff;
+  });
+  avgADiff = Math.round(avgADiff / aScoreDiffs.length) || 0;
+
+  var avgBDiff = 0;
+  bScoreDiffs.forEach(function(diff) {
+    avgBDiff += diff;
+  });
+  avgBDiff = Math.round(avgBDiff / bScoreDiffs.length) || 0;
+%><!doctype html>
+<html lang="en-US">
+  <head>
+    <%= t.include("partials/_head.html", grunt.data.json) %>
+    <% if (json.project.production && !json.project.embedded) { %>
+      <%= t.include("partials/_dataLayer.html") %>
+      <%= t.include("partials/_gtm.html") %>
+    <% } %>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <% if (json.project.production && !json.project.embedded) { %>
+      <%= t.include("partials/_gtmNoScript.html") %>
+    <% } %>
+    <%= t.include("partials/_nav.html") %>
+
+
+    <div class="header">
+
+      <header class="splash">
+
+        <img src="assets/russrodgers.jpg" width="700">
+
+      </header>
+
+      <h1 class="hed-main">Pick &rsquo;em</h1>
+      <h2 class="hed-deck">
+        <span class="opposing uppercase"><%= json.project.teams.opposing %></span>
+
+         vs.
+
+         <span class="home uppercase"><%= json.project.teams.home %></span>
+       </h2>
+       
+      <p>The Seahawks are on to the divisional round of the NFL playoffs. How will Seattle fare on Sunday against the Packers? Make your prediction below and compare with our experts and your fellow fans.</p>
+    </div>
+
+    <div class="container">
+      <div class="fan-predictions show-form">
+
+        <div class="form-container"><%= t.include("_form.html") %></div>
+
+        <div class="results">
+
+          <div class="scatter-box">
+            <div class="y axis"><%= json.project.teams.home %></div>
+            <div class="scatterplot">
+              <% Object.keys(groupedPredictions)
+                  .sort((a, b) => groupedPredictions[a].count - groupedPredictions[b].count)
+                  .forEach(function(index) {
+                var p = groupedPredictions[index]; %>
+                <%= t.include("js/_dot.html", { data: p }) %>
+              <% }) %>
+
+              <% for (var index in axis) { %>
+                <div class="x-num" style="left: <%= axis[index].percent %>%;">
+                  <%= axis[index].score %>
+                </div>
+                <div class="y-num" style="bottom: <%= axis[index].percent %>%;">
+                  <%= axis[index].score %>
+                </div>
+              <% } %>
+            </div>
+            <div class="x axis"><%= json.project.teams.opposing %></div>
+          </div>
+
+          <div class="sidebar">
+            <p class="sidebar-title uppercase">Who fans picked:</p>
+
+            <div class="sidebar-box">
+              <div class="team-box home">
+                <div class="team home"><%= json.project.teams.home %></div>
+                <div class="percent"><%= aPercent %>%</div>
+                favored by<br>an average of
+                <div class="avg-diff"><%= avgADiff %> points</div>
+              </div>
+              <div class="team-box opposing">
+                <div class="team opposing"><%= json.project.teams.opposing %></div>
+                <div class="percent"><%= bPercent %>%</div>
+                favored by<br>an average of
+                <div class="avg-diff"><%= avgBDiff %> points</div>
+              </div>
+              <div class="add-yourself">Add yourself</div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <%= t.include("_tiles.html") %>
+    </div>
+
+    <%= t.include("partials/_dontMiss.html", { data: json.recirc }) %>
+
+    <%= t.include("partials/_navBottom.html") %>
+
+    <script>
+    window.maxScore = <%= maxScore %>;
+    window.teams = <%= JSON.stringify(json.project.teams) %>;
+    </script>
+
+    <script src="app.js" async></script>
+    <% if (json.project.production) { %>
+    <%= !json.project.embedded ? t.include("partials/_analytics.html") : "" %>
+    <%= t.include("partials/_workHere.html") %>
+    <% } %>
+  </body>
+</html>

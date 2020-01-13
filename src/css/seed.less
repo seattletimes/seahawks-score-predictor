@@ -1,0 +1,178 @@
+// IMPORTS
+@import "seattletimes";
+@import "form";
+@import "page";
+@import "tiles";
+@import "plot";
+
+// COLORS
+@seaGreen: #4EAE47;
+@seaBlue: #06192E;
+@seaGray: #666666;
+@black: #222222;
+@light-gray: #CCCCCC;
+@home-team: #FFB612;
+@opposing: @seaBlue;
+
+.opposing {
+  border-color: @opposing;
+  color: @opposing;
+}
+
+.home {
+  border-color: @home-team;
+  color: @home-team;
+}
+
+.green-background {
+  background-color: @home-team;
+}
+
+.blue {
+  color: @seaBlue;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+.fan-predictions {
+  width: 75%;
+  margin: auto;
+  padding: 24px 0;
+}
+
+.results {
+  .display-flex();
+  .align-items(center);
+
+  @media @tablet {
+    display: block;
+  }
+
+  .scatter-box {
+    .flex(1 1 80%);
+  }
+
+  .sidebar {
+    .flex(0 0 250px);
+    padding: 0 25px;
+  }
+
+  .show-form & {
+    display: none;
+  }
+}
+
+.sidebar {
+  text-align: center;
+
+  .sidebar-title {
+    margin-top: 0;
+    font-weight: bold;
+    color: @seaBlue;
+
+    @media @tablet {
+      margin: 0;
+    }
+
+    @media (~"max-width:600px") {
+      padding-bottom: 15px;
+    }
+  }
+
+  .sidebar-box {
+    font-family: @df-sans;
+
+    .team-box {
+      margin-bottom: 10px;
+
+      @media @tablet {
+        width: 46%;
+        display: inline-block;
+      }
+
+      @media @mobile {
+        display: block;
+        width: 100%;
+      }
+
+      &.home {
+        border: 4px solid @home-team;
+      }
+
+      &.opposing {
+        border: 4px solid @opposing;
+      }
+
+      .team {
+        font-size: 1.5em;
+        text-transform: uppercase;
+        color: @seaBlue;
+        text-align: center;
+        padding: 3px;
+
+        &.home {
+          background: @home-team;
+          color: white;
+        }
+
+        &.opposing {
+          background: @opposing;
+          color: white;
+        }
+      }
+    }
+
+    .percent {
+      font-size: 2.5em;
+      font-weight: bold;
+      padding: 10px;
+      padding-top: 0;
+      background: white;
+      color: @seaBlue;
+      text-align: center;
+      padding-bottom: 0;
+    }
+
+    .avg-diff {
+      font-size: 1.4em;
+      color: @seaBlue;
+      text-align: center;
+      padding: 10px;
+      padding-top: 0;
+    }
+  }
+
+  .add-yourself {
+    display: inline-block;
+
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 8px 14px;
+    letter-spacing: 1px;
+    color: white;
+    background: @seaBlue;
+    transition: background .1s linear;
+
+    @media (~"max-width: 570px") {
+      margin-top: 25px;
+    }
+
+    &:hover {
+      background: @seaGray;
+    }
+
+    .already-sent & {
+      display: none;
+    }
+  }
+}

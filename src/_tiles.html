@@ -1,0 +1,25 @@
+<div id="notables" class="tiles">
+  <% json.pundits.forEach(function(prediction) { %>
+    <div class="prediction">
+      <div class="card-top">
+          <% if (prediction.mug) { %>
+          <img class="mug" src="assets/<%= prediction.mug %>">
+          <div class="info">
+            <p class="name"><%= prediction.name %></p>
+            <p class="title">&mdash; <%= prediction.title %></p>
+          </div>
+          <% } else { %>
+           <div class="info-no-mug">
+            <p class="name"><%= prediction.name %></p>
+            <p class="title">&mdash; <%= prediction.title %></p>
+          </div>
+          <% } %>
+      </div>
+      <div class="lower">
+        <p class="score"><%= prediction.score %></p>
+        <p class="winner <%= prediction.color %>"><%= prediction.winner %></p>
+        <p class="comment"><%= prediction.comment.trim() %></p>
+      </div>
+    </div>
+  <% }) %>
+</div>

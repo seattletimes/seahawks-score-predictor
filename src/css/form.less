@@ -1,0 +1,139 @@
+// @import "location-input";
+// @import "autocomplete";
+// @import "util";
+// @import "radio";
+
+.form-container {
+  width: 100%;
+  padding-bottom: 20px;
+  display: none;
+
+  .show-form & {
+    display: block;
+  }
+}
+
+.form-panel {
+  background: #EEE;
+  margin: auto;
+  width: 400px;
+  padding: 40px;
+  text-align: center;
+
+  @media @mobile {
+    width: 100%;
+    padding: 20px;
+  }
+
+  h2 {
+    text-transform: uppercase;
+    margin: 0 0 5px 0;
+    font-size: 26px;
+    color: @seaBlue;
+  }
+
+  .form {
+    padding: 0 35px;
+
+    @media @mobile {
+      padding: 0;
+    }
+  }
+
+  .team-box {
+    float: left;
+    width: 50%;
+    text-align: center;
+
+    .team {
+      color: @seaBlue;
+      font-size: 18px;
+      padding-right: 5px;
+    }
+  }
+
+  input {
+    width: 95px;
+    margin: 5px 0 15px 0;
+  }
+
+  input, textarea {
+    border: 1px solid #CCC;
+    font-size: 1em;
+    padding: 6px;
+    margin-right: 6px;
+  }
+
+  button {
+    border: none;
+    background: @seaBlue;
+    color: white;
+    transition: box-shadow .2s ease-in-out, background .2s linear;
+    font-weight: bold;
+
+    &:hover {
+      background: @seaGray;
+    }
+  }
+
+  .submit {
+    clear: both;
+    display: block;
+    cursor: pointer;
+    letter-spacing: 1px;
+    font-size: 0.9em;
+    padding: 8px;
+    width: 50%;
+    border-radius: 2px;
+    margin: auto;
+  }
+
+  .skip {
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 0.8em;
+    text-align: center;
+    padding-top: 15px;
+    font-weight: bold;
+
+    @media @mobile {
+      padding-top: 20px;
+      font-size: 1em;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .submission {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 100%;
+  }
+
+  .error {
+    border-radius: 4px;
+    font-weight: 700;
+    color: @opposing;
+    text-align: center;
+    margin-top: 10px;
+    padding: 8px;
+    display: none;
+  }
+
+  .message {
+    display: none;
+    color: @seaBlue;
+    font-weight: 700;
+    margin-top: 10px;
+    padding: 8px;
+    text-align: center;
+  }
+
+  &.invalid {
+    .validation.error {
+      display: block;
+    }
+  }
+}
